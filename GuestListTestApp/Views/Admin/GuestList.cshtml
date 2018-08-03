@@ -1,0 +1,99 @@
+﻿@using GuestListTestApp.Models
+@model GuestViewModel
+@{
+    ViewBag.Title = Resources.Resources.GuestList;
+}
+<br />
+<div class="panel panel-default">
+    <div class="panel-heading">@Resources.Resources.GuestList</div>
+    <div class="panel-body">
+        <div class="tabbable tabs-right">
+            <div class="col-md-9">
+                <div class="tab-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                <input type="text" class="form-control" style="min-width: 100%" id="filter" placeholder="@Resources.Resources.SearchGuests">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" onclick="GetGuests()"><i class="fa fa-search"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="tab-pane" id="guestList">
+                                <div id="guestListContent">
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary" data-toggle="dropdown" aria-haspopup="true" onclick="FinishEvent()">@Resources.Resources.EndEvent</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <ul class="nav navbar-right">
+                    <li class="active"><a href="#guestList" data-toggle="tab" aria-expanded="false" onclick="SetFilterMode(@((int) FilterMode.AllGuests))">@Resources.Resources.AllGuests</a></li>
+                    <li class=""><a href="#guestList" data-toggle="tab" aria-expanded="false" onclick="SetFilterMode(@((int) @FilterMode.ComingGuests))">@Resources.Resources.ArrivedGuests</a></li>
+                    <li class=""><a href="#guestList" data-toggle="tab" aria-expanded="true" onclick="SetFilterMode(@((int) @FilterMode.NotComingGuests))">@Resources.Resources.NotArrivedGuests</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        var mode = @((int)FilterMode.AllGuests);
+
+        function SetFilterMode(newMode) {
+            mode = newMode;
+            GetGuests();
+        }
+
+        function GetGuests() {
+            $.post(
+                "/Admin/GetGuests",
+                { filterMode: mode, filter: $("#filter")[0].value },
+                function(data) { $("#guestListContent").html(data) }
+            );
+        }
+
+        function GuestComing(id) {
+            $.post(
+                "/Admin/GuestComing",
+                { id: id },
+                function(data) {
+                     GetGuests();
+                }
+            );
+        }
+
+        function GuestNotComing(id) {
+            $.post(
+                "/Admin/GuestNotComing",
+                { id: id },
+                function(data) {
+                     GetGuests();
+                }
+            );
+        }
+
+        function FinishEvent() {
+            $.post(
+                "/Admin/FinishEvent",
+                null,
+                function(data) { GetGuests();}
+            );
+        }
+
+        $(document).ready(function() {
+            GetGuests();
+        });
+
+    </script>
+}
+
+
+

@@ -1,0 +1,42 @@
+﻿@using GuestListTestApp.Models
+@model System.Collections.Generic.List<GuestListTestApp.Models.GuestViewModel>
+
+@foreach (var item in Model)
+{
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-11">
+                    <h4>@item.FIO</h4>
+                    <h5><a href="">@item.Email</a></h5>
+                    <h5>@item.Phone</h5>
+                </div>
+                @{
+                    var style = "";
+                    var plasButtonDisable = "";
+                    var minusButtonDisable = "";
+                    if (item.Status == GuestStatus.Wait)
+                    {
+                        style = "btn btn-default";
+                    }
+                    if (item.Status == GuestStatus.Coming)
+                    {
+                        style = "btn btn-success";
+                        plasButtonDisable = "disabled";
+                    }
+                    if (item.Status == GuestStatus.NotComing)
+                    {
+                        style = "btn btn-danger";
+                        minusButtonDisable = "disabled";
+                    }
+                }
+                <div class="col-lg-1">
+                    <div class="btn-group-vertical" role="group">
+                        <button class="@style" type="button" onclick="GuestComing('@item.Id')" disabled="@plasButtonDisable"><i class="fa fa-plus"></i></button>
+                        <button class="@style" type="button" onclick="GuestNotComing('@item.Id')" disabled="@minusButtonDisable"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
