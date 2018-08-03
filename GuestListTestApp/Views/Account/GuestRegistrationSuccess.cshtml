@@ -3,18 +3,21 @@
 @{
     ViewBag.Title = Resources.Resources.ThankyouMessage;
 }
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        @Resources.Resources.ThankyouMessage
+<br />
+<div class="row">
+<div class="col-md-4">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            @Resources.Resources.ThankyouMessage
+        </div>
+        <div class="panel-body">
+            <h5 class="card-title">@Resources.Resources.SuccesRegistrationMessage</h5>
+            <p class="card-text">@Resources.Resources.ThankyouForRegistrationMessage</p>
+        </div>
     </div>
-    <div class="panel-body">
-        <h5 class="card-title">@Resources.Resources.SuccesRegistrationMessage</h5>
-        <p class="card-text">@Resources.Resources.ThankyouForRegistrationMessage</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
+    <div/>
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }

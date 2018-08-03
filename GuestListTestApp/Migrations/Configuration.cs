@@ -32,7 +32,7 @@ namespace GuestListTestApp.Migrations
             {
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);
-                var user = new ApplicationUser {UserName = "admin", Email = "admin@email.com"};
+                var user = new Admin {UserName = "admin", Email = "admin@email.com"};
 
                 manager.Create(user, "adminadmin");
                 manager.AddToRole(user.Id, Roles.Admin);

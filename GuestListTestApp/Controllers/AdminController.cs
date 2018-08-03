@@ -8,6 +8,7 @@ using GuestListTestApp.Providers;
 
 namespace GuestListTestApp.Controllers
 {
+    [Authorize(Roles = Roles.Admin)]
     public class AdminController : Controller
     {
         private readonly GuestManager _guestManager;

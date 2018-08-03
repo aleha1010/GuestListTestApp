@@ -172,7 +172,7 @@ namespace GuestListTestApp.Controllers
             }
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser {Name = model.FIO, UserName = Guid.NewGuid().ToString(), Email = model.Email, PhoneNumber = model.Phone, Status = GuestStatus.Wait};
+                var user = new Guest {Name = model.FIO, UserName = Guid.NewGuid().ToString(), Email = model.Email, PhoneNumber = model.Phone, Status = GuestStatus.Wait};
                 var result = await UserManager.CreateAsync(user, "StubPass1#");
                 if (result.Succeeded)
                 {

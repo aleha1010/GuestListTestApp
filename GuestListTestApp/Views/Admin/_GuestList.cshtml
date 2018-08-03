@@ -13,8 +13,7 @@
                 </div>
                 @{
                     var style = "";
-                    var plasButtonDisable = "";
-                    var minusButtonDisable = "";
+                    var buttonDisable = "";
                     if (item.Status == GuestStatus.Wait)
                     {
                         style = "btn btn-default";
@@ -22,18 +21,18 @@
                     if (item.Status == GuestStatus.Coming)
                     {
                         style = "btn btn-success";
-                        plasButtonDisable = "disabled";
+                        buttonDisable = "disabled='disabled'";
                     }
                     if (item.Status == GuestStatus.NotComing)
                     {
                         style = "btn btn-danger";
-                        minusButtonDisable = "disabled";
+                        buttonDisable = "disabled='disabled'";
                     }
                 }
                 <div class="col-lg-1">
                     <div class="btn-group-vertical" role="group">
-                        <button class="@style" type="button" onclick="GuestComing('@item.Id')" disabled="@plasButtonDisable"><i class="fa fa-plus"></i></button>
-                        <button class="@style" type="button" onclick="GuestNotComing('@item.Id')" disabled="@minusButtonDisable"><i class="fa fa-minus"></i></button>
+                        <button class="@style" type="button" onclick="GuestComing('@item.Id')" @buttonDisable><i class="fa fa-plus"></i></button>
+                        <button class="@style" type="button" onclick="GuestNotComing('@item.Id')" @buttonDisable><i class="fa fa-minus"></i></button>
                     </div>
                 </div>
             </div>

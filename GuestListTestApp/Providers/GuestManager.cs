@@ -33,11 +33,11 @@ namespace GuestListTestApp.Providers
             return guestViewModels;
         }
 
-        private static IQueryable<ApplicationUser> GetAllGuests(ApplicationDbContext context)
+        private static IQueryable<Guest> GetAllGuests(ApplicationDbContext context)
         {
             var role = context.Roles.First(r => r.Name == Roles.Guest);
 
-            var allGuests = context.Users.Where(u => u.Roles.Any(r => r.RoleId == role.Id));
+            var allGuests = context.Guests.Where(u => u.Roles.Any(r => r.RoleId == role.Id));
             return allGuests;
         }
 
@@ -55,7 +55,7 @@ namespace GuestListTestApp.Providers
         {
             using (var context = new ApplicationDbContext())
             {
-                var user = context.Users.First(u => u.Id == id);
+                var user = context.Guests.First(u => u.Id == id);
 
                 user.Status = status;
                 context.SaveChanges();
